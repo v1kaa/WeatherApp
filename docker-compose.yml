@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=redis
+      - API_KEY=796dde60799fd404ff29e69cca40b265
+    volumes:
+      - .:/app
+      - /app/node_modules:/app/node_modules
+    command: ["node", "app.js"]
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
